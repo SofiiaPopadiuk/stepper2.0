@@ -1,0 +1,24 @@
+<div class="stepper stepper--{{direction}}">
+  <div *ngFor="let step of steps; let i = index; trackBy: trackByFn" class="step step--{{step.status}}">
+    <span class="step__label">{{ step.label }}</span>
+    <div class="step__progress progress">
+      <div
+        class="progress__line"
+        [@progressVertical]="{
+          value: direction === StepperDirection.Vertical ? step.status : null,
+          params: { color }
+        }"
+        [@progressHorizontal]="{
+          value: direction === StepperDirection.Horizontal ? step.status : null,
+          params: { color }
+        }"
+      ></div>
+      <span class="progress__icon">
+        <ng-container *ngIf="step.status === StepStatus.Completed; else stepNumber">
+          &#10003;
+        </ng-container>
+        <ng-template #stepNumber>{{ i + 1 }}</ng-template>
+      </span>
+    </div>
+  </div>
+</div>
